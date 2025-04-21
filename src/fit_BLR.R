@@ -65,9 +65,9 @@ fit_model_FDML <- function(outcome_var) {
 
   ps1 <- BLR(y = D[i1], XR = X[i1, , drop=FALSE])
   y1  <- BLR(y = Y[i1], XR = X[i1, , drop=FALSE])
-  a_r <- D[i2] - ps1$mu - X[i2, , drop=FALSE] %*% ps1$bR
-  y_r <- Y[i2] - y1$mu  - X[i2, , drop=FALSE] %*% y1$bR
-  dml_split <- lm(y_r ~ a_r)
+  a_res <- D[i2] - ps1$mu - X[i2, , drop=FALSE] %*% ps1$bR
+  y_res <- Y[i2] - y1$mu  - X[i2, , drop=FALSE] %*% y1$bR
+  dml_split <- lm(y_res ~ a_res)
 
   list(FDML_full  = dml_full,
        FDML_split = dml_split)
