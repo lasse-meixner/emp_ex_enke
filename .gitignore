@@ -1,0 +1,10 @@
+notes.txt
+test.R
+
+# compiled stan models
+BDML_HP_IW
+BDML_HP_LKJ
+BDML_LKJ
+
+# BRL files
+*.dat
