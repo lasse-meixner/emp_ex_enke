@@ -24,15 +24,24 @@ for (o in outcomes) {
   res_b  <- extract_results_BDML(fit_b,   method_name = "BDML_LKJ")
   res_b$outcome <- o
 
+  # save intermediate results
+  write_csv(res_b, paste0("results/", o, "_BDML_LKJ.csv"))
+
   # 3.2 Inverse‐Wishart
   fit_b2 <- fit_model_dml_hp_b(o)
   res_b2 <- extract_results_BDML(fit_b2,  method_name = "BDML_HP_LKJ")
   res_b2$outcome <- o
+  
+  # save intermediate results
+  write_csv(res_b2, paste0("results/", o, "_BDML_HP_LKJ.csv"))
 
   # 3.3 Simple LKJ (“R2D2”)
   fit_r2 <- fit_model_dml_hp_iw(o)
   res_r2 <- extract_results_BDML(fit_r2,  method_name = "BDML_HP_IW")
   res_r2$outcome <- o
+
+  # save intermediate results
+  write_csv(res_r2, paste0("results/", o, "_BDML_HP_IW.csv"))
 
   ## ---- BLR‐based methods ----
   # 3.4 BLR variants (naive, Hahn, Linero)
@@ -40,15 +49,24 @@ for (o in outcomes) {
   res_blr  <- extract_results_BLR(fits_blr)
   res_blr$outcome <- o
 
+  # save intermediate results
+  write_csv(res_blr, paste0("results/", o, "_BLR.csv"))
+
   # 3.5 FDML (full & split)
   fits_fdml <- fit_model_FDML(o)
   res_fdml  <- extract_results_FDML(fits_fdml)
   res_fdml$outcome <- o
 
+  # save intermediate results
+  write_csv(res_fdml, paste0("results/", o, "_FDML.csv"))
+
   # 3.6 IW‐BLR
   alpha_iw   <- fit_mvn_iw_model(o)
   res_iw     <- extract_results_IW(alpha_iw)
   res_iw$outcome <- o
+
+  # save intermediate results
+  write_csv(res_iw, paste0("results/", o, "_IW.csv"))
 
   # 3.7 Bind this outcome’s results ----
   all_res[[o]] <- bind_rows(
@@ -57,6 +75,9 @@ for (o in outcomes) {
     res_fdml,
     res_iw
   )
+
+  # save intermediate results
+  write_csv(all_res[[o]], paste0("results/", o, "_all_results.csv"))
 }
 
 # 4. Combine all outcomes and write to CSV ----
